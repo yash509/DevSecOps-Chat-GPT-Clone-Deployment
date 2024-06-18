@@ -241,7 +241,7 @@ pipeline {
           }
         }
 
-        stage ("Remove container") {
+        stage ("Remove Docker Container") {
             steps{
                 sh "docker stop chatgpt | true"
                 sh "docker rm chatgpt | true"
