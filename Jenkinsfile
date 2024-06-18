@@ -240,6 +240,13 @@ pipeline {
            }
           }
         }
+
+        stage ("Remove container") {
+            steps{
+                sh "docker stop chatgpt | true"
+                sh "docker rm chatgpt | true"
+             }
+        }
         
         stage('Deploy to Docker Container'){
             steps{
