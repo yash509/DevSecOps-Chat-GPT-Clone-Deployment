@@ -4,7 +4,7 @@ pipeline{
    stages {
        stage('Checkout from Git'){
            steps{
-               git branch: 'legacy', url: 'https://github.com/manishaacharya111/Chat-gpt-deployment.git'
+               git branch: 'legacy', url: 'https://github.com/yash509/DevSecOps-Chat-GPT-Clone-Deployment.git'
            }
        }
        stage('Terraform version'){
