@@ -2,20 +2,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: chatbot
+  name: chatgpt
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: chatbot
+      app: chatgpt
   template:
     metadata:
       labels:
-        app: chatbot
+        app: chatgpt
     spec:
       containers:
       - name: chatbot
-        image: merry211/chatbot:latest
+        image: yash5090/chatgpt:latest
         ports:
         - containerPort: 3000   # Use port 3000
 
@@ -23,10 +23,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: chatbot-service
+  name: chatgpt-service
 spec:
   selector:
-    app: chatbot
+    app: chatgpt
   ports:
   - protocol: TCP
     port: 80                 # Expose port 80
