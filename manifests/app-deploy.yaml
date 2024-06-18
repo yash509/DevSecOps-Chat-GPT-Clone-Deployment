@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chatgpt-app-deployment
+spec:
+  replicas: 2 # You can adjust the number of replicas as needed
+  selector:
+    matchLabels:
+      app: chatgpt-app
+  template:
+    metadata:
+      labels:
+        app: chatgpt-app
+    spec:
+      containers:
+        - name: chatgpt-app
+          image: yash5090/chatgpt-app:latest # Replace with the actual image tag
+          ports:
+            - containerPort: 3000 # Replace with the port your Tetris game listens on
