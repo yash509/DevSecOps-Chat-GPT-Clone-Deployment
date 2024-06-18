@@ -156,7 +156,7 @@ pipeline {
                 script{
                     //dir('Band Website') {
                         withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){   
-                            sh "docker build -t chatgpt ." 
+                            sh "docker build -t chatgpt-app ." 
                             
                         //}
                     }
@@ -169,7 +169,7 @@ pipeline {
                 script{
                     //dir('Band Website') {
                         withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){
-                            sh "docker tag chatgpt yash5090/chatgpt:latest " 
+                            sh "docker tag chatgpt-app yash5090/chatgpt-app:latest " 
                         //}
                     }
                 }
@@ -178,7 +178,7 @@ pipeline {
         
         stage('Docker Image Scanning') { 
             steps { 
-                sh "trivy image --format table -o trivy-image-report.html yash5090/chatgpt:latest" 
+                sh "trivy image --format table -o trivy-image-report.html yash5090/chatgpt-app:latest" 
             } 
         } 
         
@@ -187,7 +187,7 @@ pipeline {
                 script{
                     //dir('Band Website') {
                         withDockerRegistry(credentialsId: 'docker', toolName: 'docker') {
-                            sh "docker push yash5090/chatgpt:latest "
+                            sh "docker push yash5090/chatgpt-app:latest "
                         //}
                     }
                 }
@@ -198,10 +198,10 @@ pipeline {
             steps {
                 script{
                    withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){
-                       sh 'docker-scout quickview yash5090/chatgpt:latest'
-                       sh 'docker-scout cves yash5090/chatgpt:latest'
-                       sh 'docker-scout recommendations yash5090/chatgpt:latest'
-                       sh 'docker-scout attestation yash5090/chatgpt:latest'
+                       sh 'docker-scout quickview yash5090/chatgpt-app:latest'
+                       sh 'docker-scout cves yash5090/chatgpt-app:latest'
+                       sh 'docker-scout recommendations yash5090/chatgpt-app:latest'
+                       sh 'docker-scout attestation yash5090/chatgpt-app:latest'
                    }
                 }   
             }
@@ -210,7 +210,7 @@ pipeline {
         stage("TRIVY"){
             steps{
                 //dir('Band Website') {
-                    sh "trivy image yash5090/chatgpt:latest > trivyimage.txt"   
+                    sh "trivy image yash5090/chatgpt-app:latest > trivyimage.txt"   
                 //}
             }
         }
@@ -243,15 +243,15 @@ pipeline {
 
         stage ("Remove Docker Container") {
             steps{
-                sh "docker stop chatgpt | true"
-                sh "docker rm chatgpt | true"
+                sh "docker stop chatgpt-app | true"
+                sh "docker rm chatgpt-app | true"
              }
         }
         
         stage('Deploy to Docker Container'){
             steps{
                 //dir('BMI Calculator (JS)') {
-                    sh 'docker run -d --name chatgpt -p 3000:3000 yash5090/chatgpt:latest' 
+                    sh 'docker run -d --name chatgpt-app -p 3000:3000 yash5090/chatgpt-app:latest' 
                 //}
             }
         }
